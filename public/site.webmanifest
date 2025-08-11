@@ -1,0 +1,25 @@
+{
+  "name": "DAxGENAI - Data Analytics Training",
+  "short_name": "DAxGENAI",
+  "description": "Master Data Analytics with Generative AI - Professional training in Excel, Power BI, SQL, Python, and AI-powered analytics",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#dc2626",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["education", "business", "productivity"],
+  "lang": "en-US",
+  "dir": "ltr"
+}
