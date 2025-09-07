@@ -85,7 +85,8 @@ const PricingSection: React.FC = () => {
     };
 
     const observer = new IntersectionObserver(observerCallback, {
-      threshold: 0.2
+      threshold: 0.1,
+      rootMargin: '50px 0px'
     });
 
     const currentSectionRef = sectionRef.current;
@@ -159,7 +160,7 @@ const PricingSection: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 mb-16 items-start">
           
           {/* Left Side: Fixed Main Program */}
-          <div className={`transform transition-all duration-700 delay-200 ${
+          <div className={`transform transition-all duration-700 delay-100 sm:delay-200 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}>
             {/* Main Program - Complete Data Analytics */}
@@ -256,7 +257,7 @@ const PricingSection: React.FC = () => {
           </div>
 
           {/* Right Side: Individual Courses */}
-          <div className={`transform transition-all duration-700 delay-400 ${
+          <div className={`transform transition-all duration-700 delay-200 sm:delay-400 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}>
             <div className="bg-white rounded-2xl shadow-xl border border-gray-200 p-8 h-full">
@@ -334,7 +335,7 @@ const PricingSection: React.FC = () => {
         {/* Popular Features Section */}
         <div className={`bg-white rounded-2xl shadow-xl border border-gray-200 p-8 sm:p-12 ${
           isVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-8'
-        }`} style={{ animationDelay: '1000ms' }}>
+        }`} style={{ animationDelay: '500ms' }}>
           <div className="text-center mb-8">
             <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">
               What Makes Our Training Special?
@@ -358,7 +359,7 @@ const PricingSection: React.FC = () => {
 
         {/* Call to Action */}
         <div className="text-center mt-16 sm:mt-20">
-          <div className={`transform transition-all duration-700 delay-500 ${
+          <div className={`transform transition-all duration-700 delay-300 sm:delay-500 ${
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}>
             <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">
