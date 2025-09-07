@@ -35,28 +35,28 @@ const PricingSection: React.FC = () => {
   // Other courses for display (excluding the main program)
   const carouselCourses = [
     {
-      name: "Excel for Data Analysis",
+      name: "Advance Excel",
       description: "Master Excel for data manipulation, cleaning, and advanced analysis. Perfect for beginners to build a strong foundation.",
       price: "₹10,000",
       duration: "8 weeks",
-      features: ["Basic Excel functions", "Data cleaning", "PivotTables", "Basic charts"]
+      features: ["Pivot Tables", "Pivot Charts"]
     },
     {
-      name: "Python for Data Analytics",
+      name: "Python",
       description: "Learn Python for data analysis, machine learning, and web development. Ideal for aspiring data scientists.",
       price: "₹18,000",
       duration: "10 weeks",
       features: ["Python basics", "Data structures", "Pandas", "Matplotlib"]
     },
     {
-      name: "SQL for Data Management",
+      name: "SQL & Database",
       description: "Master SQL for managing and querying databases. Essential for data engineers and analysts.",
       price: "₹18,000",
       duration: "10 weeks",
-      features: ["SQL basics", "Data modeling", "Query optimization", "Database design"]
+      features: ["Adhoc Queries", "Query optimization"]
     },
     {
-      name: "Power BI for Data Visualization",
+      name: "Power BI",
       description: "Learn Power BI for creating interactive dashboards and reports. Ideal for business intelligence professionals.",
       price: "₹15,000",
       duration: "14 weeks",
@@ -167,7 +167,7 @@ const PricingSection: React.FC = () => {
               {/* Popular Badge */}
               <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-red-500 to-red-600 text-white px-6 py-2 rounded-full text-sm font-semibold shadow-lg">
                 <Star className="w-4 h-4 inline mr-2" />
-                Most Popular & Comprehensive
+                Most Popular
               </div>
 
               {/* Program Header */}

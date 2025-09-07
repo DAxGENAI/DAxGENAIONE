@@ -97,11 +97,11 @@ const Header: React.FC = () => {
               >
                 <BarChart3 className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
               </div>
-              <div className="hidden sm:block">
-                <h1 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-black to-red-600 bg-clip-text text-transparent">
+              <div className="block">
+                <h1 className="text-lg sm:text-xl md:text-2xl font-bold bg-gradient-to-r from-black to-red-600 bg-clip-text text-transparent">
                   DAxGENAI
                 </h1>
-                <p className="text-xs text-gray-600">Data Analytics Training</p>
+                <p className="text-xs text-gray-600 hidden sm:block">Data Analytics Training</p>
               </div>
             </div>
 

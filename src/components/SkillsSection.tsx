@@ -157,21 +157,37 @@ const SkillsSection: React.FC = () => {
                 {/* This block is removed as per the edit hint to remove unused imports */}
                 
                 {/* Skill Card */}
-                <div className="relative bg-white p-3 sm:p-4 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-rotate-2 border border-gray-100 cursor-pointer group h-32 sm:h-36 lg:h-40 flex flex-col">
+                <div className="relative bg-white p-3 sm:p-4 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-rotate-2 border border-gray-100 cursor-pointer group h-32 sm:h-36 lg:h-40 flex flex-col sm:flex-col">
                   {/* Step Number */}
                   <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-6 h-6 sm:w-8 sm:h-8 bg-gradient-to-r from-red-600 to-red-700 text-white rounded-full flex items-center justify-center text-xs sm:text-sm font-bold shadow-lg group-hover:scale-110 transition-transform duration-300 flex-shrink-0">
                     {skill.step.toString().padStart(2, '0')}
                   </div>
                   
-                  {/* Icon */}
-                  <div className="w-8 h-8 sm:w-12 sm:h-12 bg-gradient-to-br from-red-100 to-red-200 rounded-xl flex items-center justify-center mx-auto mb-2 sm:mb-3 mt-4 group-hover:bg-gradient-to-br group-hover:from-red-200 group-hover:to-red-300 transition-all duration-300 flex-shrink-0">
-                    <skill.icon className="w-4 h-4 sm:w-6 sm:h-6 text-red-600 group-hover:text-red-700 transition-colors duration-300" />
+                  {/* Mobile Layout: Icon on left, text on right */}
+                  <div className="flex items-center space-x-4 sm:hidden mt-4">
+                    {/* Icon */}
+                    <div className="w-14 h-14 bg-gradient-to-br from-red-100 to-red-200 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:bg-gradient-to-br group-hover:from-red-200 group-hover:to-red-300 transition-all duration-300">
+                      <skill.icon className="w-7 h-7 text-red-600 group-hover:text-red-700 transition-colors duration-300" />
+                    </div>
+                    
+                    {/* Title */}
+                    <h3 className="text-lg font-bold text-gray-900 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-black group-hover:to-red-600 group-hover:bg-clip-text transition-all duration-300 flex-grow">
+                      {skill.name}
+                    </h3>
                   </div>
                   
-                  {/* Title Only */}
-                  <h3 className="text-xs sm:text-sm lg:text-base font-bold text-gray-900 text-center group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-black group-hover:to-red-600 group-hover:bg-clip-text transition-all duration-300 flex-grow flex items-center justify-center px-1">
-                    {skill.name}
-                  </h3>
+                  {/* Desktop Layout: Icon on top, text below */}
+                  <div className="hidden sm:flex flex-col h-full">
+                    {/* Icon */}
+                    <div className="w-8 h-8 sm:w-12 sm:h-12 bg-gradient-to-br from-red-100 to-red-200 rounded-xl flex items-center justify-center mx-auto mb-2 sm:mb-3 mt-4 group-hover:bg-gradient-to-br group-hover:from-red-200 group-hover:to-red-300 transition-all duration-300 flex-shrink-0">
+                      <skill.icon className="w-4 h-4 sm:w-6 sm:h-6 text-red-600 group-hover:text-red-700 transition-colors duration-300" />
+                    </div>
+                    
+                    {/* Title */}
+                    <h3 className="text-xs sm:text-sm lg:text-base font-bold text-gray-900 text-center group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-black group-hover:to-red-600 group-hover:bg-clip-text transition-all duration-300 flex-grow flex items-center justify-center px-1">
+                      {skill.name}
+                    </h3>
+                  </div>
                 </div>
               </div>
             ))}
