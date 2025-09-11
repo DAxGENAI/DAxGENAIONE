@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Mail, Phone, MapPin, Send, CheckCircle, AlertCircle, ChevronDown } from 'lucide-react';
-import emailjs from '@emailjs/browser';
-import { emailConfig } from '../config/emailConfig';
+import { sendEmail } from '../utils/emailService';
 
 interface FormData {
   name: string;
@@ -56,9 +55,6 @@ const ContactSection: React.FC = () => {
   ];
 
   useEffect(() => {
-    // Initialize EmailJS
-    emailjs.init(emailConfig.publicKey);
-    
     const observerCallback = (entries: IntersectionObserverEntry[]) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -156,41 +152,14 @@ const ContactSection: React.FC = () => {
     setSubmitError(null);
 
     try {
-      // EmailJS configuration - ultra-simple to avoid template corruption
-      const templateParams = {
-        to_name: 'DAxGENAI Admin',
-        message: `New contact form submission from ${formData.name} (${formData.email})
+      console.log('Sending email with data:', formData);
 
-Phone: ${formData.phone || 'Not provided'}
-Experience Level: ${formData.experience}
-Learning Goals: ${formData.goals}
-Preferred Time: ${formData.preferredTime}
-Submission Date: ${new Date().toLocaleDateString('en-US', {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric',
-          hour: '2-digit',
-          minute: '2-digit'
-        })}
+      // Send email using the new email service
+      const result = await sendEmail(formData);
 
-This message was sent from the DAxGENAI website contact form.`
-      };
+      console.log('Email service result:', result);
 
-      console.log('Sending email with params:', templateParams);
-      console.log('Using service ID:', emailConfig.serviceId);
-      console.log('Using template ID:', emailConfig.templateId);
-
-      // Send email using EmailJS
-      const result = await emailjs.send(
-        emailConfig.serviceId,
-        emailConfig.templateId,
-        templateParams,
-        emailConfig.publicKey
-      );
-
-      console.log('EmailJS result:', result);
-
-      if (result.status === 200) {
+      if (result.success) {
         setSubmitSuccess(true);
         setFormData({
           name: '',
@@ -206,21 +175,46 @@ This message was sent from the DAxGENAI website contact form.`
         setTimeout(() => {
           setSubmitSuccess(false);
         }, 5000);
+      } else {
+        throw new Error(result.error || 'Email sending failed');
       }
     } catch (error) {
       console.error('Email sending failed:', error);
-      console.error('Error details:', {
-        serviceId: emailConfig.serviceId,
-        templateId: emailConfig.templateId,
-        publicKey: emailConfig.publicKey,
-        error: error
-      });
-      setSubmitError('Failed to send message. Please try again or contact us directly.');
       
-      // Reset error message after 5 seconds
+      // More specific error messages based on error type
+      let errorMessage = 'Failed to send message. Please try again or contact us directly.';
+      
+      if (error instanceof Error) {
+        if (error.message.includes('Network')) {
+          errorMessage = 'Network error. Please check your connection and try again.';
+        } else if (error.message.includes('HTTP error')) {
+          errorMessage = 'Server error. Please try again later or contact us directly.';
+        } else if (error.message.includes('Email client opened')) {
+          // This is actually a success case for the fallback
+          setSubmitSuccess(true);
+          setFormData({
+            name: '',
+            email: '',
+            phone: '',
+            experience: '',
+            goals: '',
+            preferredTime: ''
+          });
+          setErrors({});
+          
+          setTimeout(() => {
+            setSubmitSuccess(false);
+          }, 5000);
+          return;
+        }
+      }
+      
+      setSubmitError(errorMessage);
+      
+      // Reset error message after 8 seconds
       setTimeout(() => {
         setSubmitError(null);
-      }, 5000);
+      }, 8000);
     } finally {
       setIsSubmitting(false);
     }
@@ -370,8 +364,8 @@ This message was sent from the DAxGENAI website contact form.`
                   <div className="flex items-center space-x-3">
                     <CheckCircle className="w-6 h-6 text-green-400" aria-hidden="true" />
                     <div>
-                      <p className="font-semibold text-green-400">Thank you!</p>
-                      <p className="text-green-300 text-sm">We'll get back to you within 24 hours.</p>
+                      <p className="font-semibold text-green-400">Email Sent Successfully!</p>
+                      <p className="text-green-300 text-sm">Thank you for your submission. We'll get back to you within 24 hours.</p>
                     </div>
                   </div>
                 </div>
@@ -577,12 +571,12 @@ This message was sent from the DAxGENAI website contact form.`
                     ? 'bg-gray-600 text-white cursor-not-allowed'
                     : 'bg-gradient-to-r from-red-600 to-red-700 text-white hover:from-red-700 hover:to-red-800 shadow-lg hover:shadow-xl'
                 }`}
-                aria-label={isSubmitting ? 'Sending message...' : 'Send message'}
+                aria-label={isSubmitting ? 'Sending email...' : 'Send message'}
               >
                 {isSubmitting ? (
                   <div className="flex items-center justify-center space-x-2">
                     <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                    <span>Sending Message...</span>
+                    <span>Sending Email...</span>
                   </div>
                 ) : (
                   <div className="flex items-center justify-center space-x-2">
@@ -594,7 +588,7 @@ This message was sent from the DAxGENAI website contact form.`
               
               {isSubmitting && (
                 <p id="submitting-status" className="text-sm text-gray-400 text-center">
-                  Please wait while we process your request...
+                  Sending your message...
                 </p>
               )}
             </form>
