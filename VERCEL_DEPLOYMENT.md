@@ -1,6 +1,6 @@
 # Vercel Deployment Guide
 
-## ✅ Your Contact Form is Now Vercel-Ready!
+## ✅ Your Website is Now Vercel-Ready!
 
 ### What I've Done:
 
@@ -12,10 +12,18 @@
 2. **Updated Frontend**:
    - Changed API call from `localhost:3001` to `/api/send-email`
    - Now uses relative path that works on Vercel
+   - Added Download Brochure functionality with modal form
 
 3. **Added Vercel Configuration**:
    - `vercel.json` with proper function settings
    - API routing configuration
+   - PDF file serving configuration
+
+4. **New Features Added**:
+   - Download Brochure button in hero section
+   - Lead capture modal with form validation
+   - PDF download and view online functionality
+   - Mobile-responsive design
 
 ### How to Deploy to Vercel:
 
@@ -49,15 +57,18 @@ vercel
 
 1. **Frontend deploys** to your domain (e.g., `daxgenai.com`)
 2. **API function deploys** to `yourdomain.com/api/send-email`
-3. **Contact form works** automatically using your Gmail App Password
-4. **Emails sent** to daxgenai@gmail.com with all form data
+3. **PDF brochure** available at `yourdomain.com/DAxGENAI Data Analytics With GEN AI.pdf`
+4. **Contact form works** automatically using your Gmail App Password
+5. **Brochure download form** works with lead capture
+6. **Emails sent** to daxgenai@gmail.com with all form data
 
 ### Testing After Deployment:
 
 1. **Visit your live website**
-2. **Fill out the contact form**
-3. **Click "Send Message"**
-4. **Check daxgenai@gmail.com** for the email
+2. **Test Download Brochure button** - should open modal with form
+3. **Fill out brochure form** - should send email and show download options
+4. **Test contact form** - should work as before
+5. **Check daxgenai@gmail.com** for both types of emails
 
 ### Environment Variables (if needed):
 
