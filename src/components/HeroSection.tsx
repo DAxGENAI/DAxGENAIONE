@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { ChevronDown, Play } from 'lucide-react';
+import { ChevronDown, Play, Download } from 'lucide-react';
+import BrochureModal from './BrochureModal';
 
 const HeroSection: React.FC = () => {
   const [isMobile, setIsMobile] = useState(false);
@@ -10,6 +11,7 @@ const HeroSection: React.FC = () => {
     satisfaction: 0
   });
   const [hasAnimated, setHasAnimated] = useState(false);
+  const [isBrochureModalOpen, setIsBrochureModalOpen] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -231,13 +233,18 @@ const HeroSection: React.FC = () => {
             </button>
             
             <button
-              onClick={() => scrollToSection('about')}
-              onKeyDown={(e) => handleKeyDown(e, 'about')}
+              onClick={() => setIsBrochureModalOpen(true)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  setIsBrochureModalOpen(true);
+                }
+              }}
               className="group bg-white/10 backdrop-blur-sm text-white px-8 sm:px-10 py-4 sm:py-5 rounded-full text-lg sm:text-xl font-semibold hover:bg-white/20 border border-white/20 transition-all duration-300 focus:outline-none focus:ring-4 focus:ring-white focus:ring-offset-2 focus:ring-offset-black"
-              aria-label="Learn more about our training programs and success stories"
+              aria-label="Download our comprehensive training brochure"
             >
-              Learn More
-              <ChevronDown className="inline-block w-5 h-5 ml-2 group-hover:translate-y-1 transition-transform duration-300" aria-hidden="true" />
+              Download Brochure
+              <Download className="inline-block w-5 h-5 ml-2 group-hover:scale-110 transition-transform duration-300" aria-hidden="true" />
             </button>
           </div>
 
@@ -272,6 +279,12 @@ const HeroSection: React.FC = () => {
       >
         <ChevronDown className="w-6 h-6" aria-hidden="true" />
       </button>
+
+      {/* Brochure Modal */}
+      <BrochureModal 
+        isOpen={isBrochureModalOpen} 
+        onClose={() => setIsBrochureModalOpen(false)} 
+      />
     </section>
   );
 };
